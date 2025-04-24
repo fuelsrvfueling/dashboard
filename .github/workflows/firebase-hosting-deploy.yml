@@ -24,9 +24,10 @@ jobs:
       - name: Build Expo Web App
         run: npx expo export --platform web
 
-      - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccountToken: "${{ secrets.FIREBASE_DEPLOY_TOKEN }}"
-          channelId: live
+- name: Deploy to Firebase Hosting
+  uses: FirebaseExtended/action-hosting-deploy@v0
+  with:
+    repoToken: "${{ secrets.GITHUB_TOKEN }}"
+    firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+    channelId: live
+
