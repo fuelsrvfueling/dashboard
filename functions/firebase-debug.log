@@ -1,0 +1,139 @@
+[debug] [2025-04-24T18:43:41.871Z] ----------------------------------------------------------------------
+[debug] [2025-04-24T18:43:41.874Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions:sendDashboardEmail
+[debug] [2025-04-24T18:43:41.874Z] CLI Version:   14.0.1
+[debug] [2025-04-24T18:43:41.874Z] Platform:      win32
+[debug] [2025-04-24T18:43:41.875Z] Node Version:  v22.14.0
+[debug] [2025-04-24T18:43:41.875Z] Time:          Thu Apr 24 2025 11:43:41 GMT-0700 (Pacific Daylight Time)
+[debug] [2025-04-24T18:43:41.875Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-04-24T18:43:42.123Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-04-24T18:43:42.123Z] > authorizing via signed-in user (contact@fuelsrv.com)
+[debug] [2025-04-24T18:43:42.124Z] [iam] checking project fuelsrv-dashboard for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-04-24T18:43:42.125Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:42.125Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:42.126Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard:testIamPermissions [none]
+[debug] [2025-04-24T18:43:42.126Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard:testIamPermissions x-goog-quota-user=projects/fuelsrv-dashboard
+[debug] [2025-04-24T18:43:42.126Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-04-24T18:43:44.349Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard:testIamPermissions 200
+[debug] [2025-04-24T18:43:44.350Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-04-24T18:43:44.352Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.352Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.353Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/fuelsrv-dashboard/serviceAccounts/fuelsrv-dashboard@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-04-24T18:43:44.353Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/fuelsrv-dashboard/serviceAccounts/fuelsrv-dashboard@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-04-24T18:43:44.508Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/fuelsrv-dashboard/serviceAccounts/fuelsrv-dashboard@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-04-24T18:43:44.509Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/fuelsrv-dashboard/serviceAccounts/fuelsrv-dashboard@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'fuelsrv-dashboard'...
+[info] 
+[info] i  deploying functions 
+[debug] [2025-04-24T18:43:44.525Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.525Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.526Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard [none]
+[debug] [2025-04-24T18:43:44.629Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard 200
+[debug] [2025-04-24T18:43:44.630Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/fuelsrv-dashboard {"projectNumber":"743817896277","projectId":"fuelsrv-dashboard","lifecycleState":"ACTIVE","name":"fuelsrv-dashboard","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-04-01T19:55:44.979465Z","parent":{"type":"organization","id":"560287238791"}}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[debug] [2025-04-24T18:43:44.640Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.640Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.641Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.641Z] Checked if tokens are valid: true, expires at: 1745522818103
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2025-04-24T18:43:44.643Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.643Z] Checked if tokens are valid: true, expires at: 1745522818103
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-04-24T18:43:44.645Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.645Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:44.646Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-04-24T18:43:44.646Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/fuelsrv-dashboard
+[debug] [2025-04-24T18:43:44.654Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/runtimeconfig.googleapis.com [none]
+[debug] [2025-04-24T18:43:44.655Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/fuelsrv-dashboard
+[debug] [2025-04-24T18:43:44.660Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudbuild.googleapis.com [none]
+[debug] [2025-04-24T18:43:44.660Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudbuild.googleapis.com x-goog-quota-user=projects/fuelsrv-dashboard
+[debug] [2025-04-24T18:43:44.664Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/artifactregistry.googleapis.com [none]
+[debug] [2025-04-24T18:43:44.665Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/artifactregistry.googleapis.com x-goog-quota-user=projects/fuelsrv-dashboard
+[debug] [2025-04-24T18:43:44.894Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/runtimeconfig.googleapis.com 200
+[debug] [2025-04-24T18:43:44.895Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2025-04-24T18:43:44.924Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/artifactregistry.googleapis.com 200
+[debug] [2025-04-24T18:43:44.925Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2025-04-24T18:43:45.109Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudbuild.googleapis.com 200
+[debug] [2025-04-24T18:43:45.109Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2025-04-24T18:43:45.168Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudfunctions.googleapis.com 200
+[debug] [2025-04-24T18:43:45.168Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/fuelsrv-dashboard/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2025-04-24T18:43:45.169Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.170Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.170Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fuelsrv-dashboard/adminSdkConfig [none]
+[debug] [2025-04-24T18:43:45.359Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fuelsrv-dashboard/adminSdkConfig 200
+[debug] [2025-04-24T18:43:45.360Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fuelsrv-dashboard/adminSdkConfig {"projectId":"fuelsrv-dashboard","storageBucket":"fuelsrv-dashboard.firebasestorage.app"}
+[debug] [2025-04-24T18:43:45.361Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.361Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.362Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs [none]
+[debug] [2025-04-24T18:43:45.547Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs 200
+[debug] [2025-04-24T18:43:45.547Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs {"configs":[{"name":"projects/fuelsrv-dashboard/configs/email"}]}
+[debug] [2025-04-24T18:43:45.550Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.551Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.552Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables [none]
+[debug] [2025-04-24T18:43:45.672Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables 200
+[debug] [2025-04-24T18:43:45.673Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables {"variables":[{"name":"projects/fuelsrv-dashboard/configs/email/variables/user","updateTime":"2025-04-23T22:35:32.743183257Z"},{"name":"projects/fuelsrv-dashboard/configs/email/variables/pass","updateTime":"2025-04-23T22:35:32.036069932Z"}]}
+[debug] [2025-04-24T18:43:45.674Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.674Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.675Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.675Z] Checked if tokens are valid: true, expires at: 1745522818103
+[debug] [2025-04-24T18:43:45.675Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables/user [none]
+[debug] [2025-04-24T18:43:45.677Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables/pass [none]
+[debug] [2025-04-24T18:43:45.791Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables/user 200
+[debug] [2025-04-24T18:43:45.791Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables/user {"name":"projects/fuelsrv-dashboard/configs/email/variables/user","updateTime":"2025-04-23T22:35:32.743183257Z","text":"dashboard@fuelsrv.com"}
+[debug] [2025-04-24T18:43:45.804Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables/pass 200
+[debug] [2025-04-24T18:43:45.804Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/fuelsrv-dashboard/configs/email/variables/pass {"name":"projects/fuelsrv-dashboard/configs/email/variables/pass","updateTime":"2025-04-23T22:35:32.036069932Z","text":"dmmu misx chag gynw"}
+[debug] [2025-04-24T18:43:45.811Z] Validating nodejs source
+[debug] [2025-04-24T18:43:46.949Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.cjs",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.3.2",
+    "googleapis": "^148.0.0",
+    "nodemailer": "^6.10.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-04-24T18:43:46.950Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2025-04-24T18:43:48.493Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-04-24T18:43:48.544Z] Found firebase-functions binary at 'C:\Users\admin\fuelsrv-dashboard\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8115
+
+[error] TypeError: functions.runWith is not a function
+    at Object.<anonymous> (C:\Users\admin\fuelsrv-dashboard\functions\index.cjs:246:4)
+    at Module._compile (node:internal/modules/cjs/loader:1554:14)
+    at Object..js (node:internal/modules/cjs/loader:1706:10)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)
+    at Function._load (node:internal/modules/cjs/loader:1108:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+    at Module.require (node:internal/modules/cjs/loader:1311:12)
+    at require (node:internal/modules/helpers:136:16)
+    at loadModule (C:\Users\admin\fuelsrv-dashboard\functions\node_modules\firebase-functions\lib\runtime\loader.js:40:16)
+
+[debug] [2025-04-24T18:43:51.406Z] Got response code 400; body Failed to generate manifest from function source: TypeError: functions.runWith is not a function

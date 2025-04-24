@@ -12,6 +12,8 @@ const sheets = google.sheets({ version: 'v4', auth });
 const serviceAccount = require('./service-account.json');
 const cors = require('cors');
 const corsHandler = cors({ origin: true });
+const nodemailer = require('nodemailer');
+
 
 exports.getFuelData = functions.https.onRequest((req, res) => {
   corsHandler(req, res, async () => {
@@ -34,8 +36,6 @@ const response = await sheets.spreadsheets.values.get({
   range,
   majorDimension: 'ROWS',
 });
-
-
       const rows = response.data.values;
       console.log(`📊 Fetching range ${range} from sheet ${sheetId}`);
       console.log(`✅ Retrieved ${rows.length} rows`);
@@ -173,6 +173,136 @@ exports.loginProxy = functions.https.onRequest((req, res) => {
     }
   });
 });
+
+exports.getInvoiceData = functions.https.onRequest(async (req, res) => {
+  corsHandler(req, res, async () => {
+
+    const { customerName, sheetId } = req.body;
+    console.log('📥 Request received:', { customerName, sheetId });
+
+    if (!customerName || !sheetId) {
+      console.error('❌ Missing required fields:', { customerName, sheetId });
+      return res.status(400).json({ error: 'Missing customerName or sheetId' });
+    }
+
+    try {
+      const sheetMetadata = await sheets.spreadsheets.get({ spreadsheetId: sheetId });
+      const sheetNames = sheetMetadata.data.sheets.map(s => s.properties.title);
+
+      const allInvoices = [];
+
+      for (const sheetName of sheetNames) {
+        const range = `'${sheetName}'!A1:AZ1000`;
+        const response = await sheets.spreadsheets.values.get({
+          spreadsheetId: sheetId,
+          range,
+        });
+
+        const rows = response.data.values;
+        if (!rows || rows.length === 0) continue;
+
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          const nameInSheet = (row[2] || '').trim();
+
+          if (nameInSheet.toLowerCase() === customerName.toLowerCase()) {
+const invoice = {
+  invoiceDate: row[1] || '',
+  invoiceId: row[3] || '',
+  clearGas: row[4] || '',
+  dyedGas: row[5] || '',
+  clearDiesel: row[7] || '',
+  dyedDiesel: row[8] || '',
+  defVolume: row[11] || '',
+  gasCost: row[12] || '',
+  gasDyedCost: row[13] || '',
+  dieselCost: row[15] || '',
+  dieselDyedCost: row[16] || '',
+  defCost: row[35] || '',
+  totalFuelCost: row[24] || '',
+  deliveryFee: row[36] || '',
+  otherCharges: row[37] || '',
+  subtotal: row[38] || '',
+  pst: row[40] || '',
+  gst: row[41] || '',
+  total: row[42] || '',
+  unitsFilled: row[43] || '',
+  sheet: sheetName
+};
+            allInvoices.push(invoice);
+          }
+        }
+      }
+
+      return res.status(200).json(allInvoices);
+    } catch (error) {
+      console.error('Error fetching invoice data:', error);
+      return res.status(500).json({ error: 'Unable to retrieve invoice data' });
+    }
+  }); // ✅ ← closing for corsHandler
+});
+
+const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
+
+const EMAIL_USER = defineSecret("EMAIL_USER");
+const EMAIL_PASS = defineSecret("EMAIL_PASS");
+
+exports.sendDashboardEmail = onRequest(
+  {
+    secrets: [EMAIL_USER, EMAIL_PASS],
+  },
+  (req, res) => {
+    corsHandler(req, res, async () => {
+      const { type, customerName, messageBody, newUserName, newUserEmail } = req.body;
+
+      const user = process.env.EMAIL_USER;
+      const pass = process.env.EMAIL_PASS;
+
+      if (!type || !customerName) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user,
+          pass,
+        },
+      });
+
+      let subject = "";
+      let text = "";
+
+      if (type === "contact" && messageBody) {
+        subject = `Dashboard Inquiry + ${customerName}`;
+        text = `Message from ${customerName}:\n\n${messageBody}`;
+      } else if (type === "newUser" && newUserName && newUserEmail) {
+        subject = `New User Request + ${customerName}`;
+        text = `Customer: ${customerName}\nNew User Name: ${newUserName}\nNew User Email: ${newUserEmail}`;
+      } else {
+        return res.status(400).json({ error: "Missing or invalid fields for request type" });
+      }
+
+      try {
+        await transporter.sendMail({
+          from: user,
+          to: "contact@fuelsrv.com",
+          subject,
+          text,
+        });
+
+        return res.status(200).json({ success: true });
+      } catch (error) {
+        console.error("Email send error:", error);
+        return res.status(500).json({ error: "Email send failed", details: error.message });
+      }
+    });
+  }
+);
+
+
+
 
 
 

@@ -55,8 +55,8 @@ useEffect(() => {
                     Total Volume
                   </Text>
                   <Text style={{ fontWeight: 'bold', color: '#fff', textDecorationLine: 'underline' }}>
-                    {totalVolume.toFixed(1)}
-                  </Text>
+  {totalVolume.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+</Text>
                 </View>
 
                 {allDates.map((date, i) => (

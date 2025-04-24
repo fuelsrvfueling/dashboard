@@ -7,8 +7,10 @@ import FuelDataTabs from './FuelDataTabs';
 import FuelDeliveryTable from './FuelDeliveryTable';
 import FuelDeliveryChart from './FuelDeliveryChart';
 import InsightsView from './InsightsView';
+import ROISavingsPage from './ROISavingsPage';
 
-export default function FuelDataView({ sheetId, sheetName, email }) {
+
+export default function FuelDataView({ sheetId, sheetName, email, onDataLoaded }) {
   const [fuelData, setFuelData] = useState([]);
   const [allData, setAllData] = useState([]);
   const [currentMonth, setCurrentMonth] = useState(1);
@@ -35,17 +37,25 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
         const value = parseFloat(delivery.value);
         if (isNaN(value)) return;
 
-        if (!totals[date]) {
-          totals[date] = {
-            date,
-            total: 0,
-            'CLEAR GASOLINE': 0,
-            'DYED GASOLINE': 0,
-            'CLEAR DIESEL': 0,
-            'DYED DIESEL': 0,
-            'DEF': 0,
-          };
-        }
+if (!totals[date]) {
+  totals[date] = {
+    date,
+    total: 0,
+    unitCounts: {
+      'CLEAR GASOLINE': 0,
+      'DYED GASOLINE': 0,
+      'CLEAR DIESEL': 0,
+      'DYED DIESEL': 0,
+      'DEF': 0,
+    },
+    'CLEAR GASOLINE': 0,
+    'DYED GASOLINE': 0,
+    'CLEAR DIESEL': 0,
+    'DYED DIESEL': 0,
+    'DEF': 0,
+  };
+}
+
 
         if (type !== 'DEF') {
           totals[date].total += value;
@@ -54,6 +64,10 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
         if (totals[date][type] !== undefined) {
           totals[date][type] += value;
         }
+		if (totals[date].unitCounts[type] !== undefined) {
+  totals[date].unitCounts[type] += 1;
+}
+
       });
     });
 
@@ -111,6 +125,8 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
       setAvailableYears([...yearSet].sort((a, b) => b - a));
       const filtered = filterData(data, latest.m, latest.y, 'All', 'All');
       setFuelData(filtered);
+	  if (onDataLoaded) onDataLoaded(filtered);
+
       setSummary(generateSummary(filtered));
     }
   };
@@ -160,6 +176,8 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
     setSelectedFuelType(tempFuelType);
     setSelectedUnit(tempUnit);
     setFuelData(filtered);
+	if (onDataLoaded) onDataLoaded(filtered);
+
     setSummary(generateSummary(filtered));
     setLoading(false);
   };
@@ -227,17 +245,25 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
         const value = parseFloat(delivery.value);
         if (isNaN(value)) return;
 
-        if (!totals[date]) {
-          totals[date] = {
-            date,
-            total: 0,
-            'CLEAR GASOLINE': 0,
-            'DYED GASOLINE': 0,
-            'CLEAR DIESEL': 0,
-            'DYED DIESEL': 0,
-            'DEF': 0,
-          };
-        }
+if (!totals[date]) {
+  totals[date] = {
+    date,
+    total: 0,
+    unitCounts: {
+      'CLEAR GASOLINE': 0,
+      'DYED GASOLINE': 0,
+      'CLEAR DIESEL': 0,
+      'DYED DIESEL': 0,
+      'DEF': 0,
+    },
+    'CLEAR GASOLINE': 0,
+    'DYED GASOLINE': 0,
+    'CLEAR DIESEL': 0,
+    'DYED DIESEL': 0,
+    'DEF': 0,
+  };
+}
+
 
         if (type !== 'DEF') {
           totals[date].total += value;
@@ -246,15 +272,27 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
         if (totals[date][type] !== undefined) {
           totals[date][type] += value;
         }
+		if (totals[date].unitCounts[type] !== undefined) {
+  totals[date].unitCounts[type] += 1;
+}
+
       });
     });
 
     return Object.values(totals).sort((a, b) => new Date(a.date) - new Date(b.date));
   }, [fuelData]);
 
-  if (loading) {
-    return <ActivityIndicator size="large" color="#1CA84D" style={{ marginTop: 24 }} />;
-  }
+if (loading) {
+  return (
+    <View style={{ marginTop: 24, alignItems: 'center' }}>
+      <ActivityIndicator size="large" color="#1CA84D" />
+      <Text style={{ marginTop: 12, fontSize: 14, color: '#555' }}>
+        Please wait – your data is loading, it may take a moment
+      </Text>
+    </View>
+  );
+}
+
 
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}>
@@ -305,7 +343,13 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
             selectedMonth={currentMonth.toString().padStart(2, '0')}
             selectedYear={currentYear.toString()}
           />
-        ) : (
+        ) : fuelTab === 'ROI' ? (
+  <ROISavingsPage
+    deliveryData={fuelData}
+    currentMonth={currentMonth}
+    currentYear={currentYear}
+  />
+) : (
   <InsightsView
     fuelData={fuelData}
 	allData={allData}
@@ -313,6 +357,7 @@ export default function FuelDataView({ sheetId, sheetName, email }) {
     currentYear={currentYear}
   />
 )}
+
       </View>
     </ScrollView>
   );

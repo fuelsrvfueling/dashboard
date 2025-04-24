@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function FuelDataTabs({ fuelTab, setFuelTab }) {
-  const tabs = ['Tabular Data', 'Chart View', 'Insights'];
+  const tabs = ['Tabular Data', 'Chart View', 'ROI', 'Insights'];
 
   return (
     <View style={styles.container}>
